@@ -1,0 +1,79 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModel="clr-namespace:LoadOpenSslKeys.ViewModel" 
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" 
+		x:Name="RootWindow" 
+		x:Class="LoadOpenSslKeys.MainWindow"
+        Title="Load SSL keys" 
+		Height="225" 
+		Width="456" 
+		WindowStyle="None" 
+		ResizeMode="NoResize" 
+		WindowStartupLocation="CenterScreen" 
+		SnapsToDevicePixels="True" 
+		UseLayoutRounding="True" 
+		AllowsTransparency="True" 
+		Background="{x:Null}" 
+		MouseDown="RootWindow_MouseDown" Icon="/LoadOpenSslKeys;component/Assets/WalletexKeys.ico">
+	<Window.DataContext>
+		<ViewModel:MainViewModel/>
+	</Window.DataContext>
+    <Border CornerRadius="10" BorderThickness="1" Background="White" BorderBrush="Black">
+    	<VisualStateManager.VisualStateGroups>
+    		<VisualStateGroup x:Name="VisualStateGroup"/>
+    	</VisualStateManager.VisualStateGroups>
+    	<Grid Margin="5">
+    		<Grid.RowDefinitions>
+    			<RowDefinition Height="17*"/>
+    			<RowDefinition Height="57*"/>
+    			<RowDefinition Height="21*"/>
+    			<RowDefinition Height="94*"/>
+    			<RowDefinition Height="24*"/>
+    		</Grid.RowDefinitions>
+    		<TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding KeysDescription, Mode=OneWay}" Grid.Row="1" d:IsLocked="True"/>
+    		<Grid Grid.Row="2" Margin="5,0" d:IsLocked="True">
+    			<Grid.ColumnDefinitions>
+    				<ColumnDefinition Width="344*"/>
+    				<ColumnDefinition Width="5"/>
+    				<ColumnDefinition Width="85*"/>
+    			</Grid.ColumnDefinitions>
+    			<TextBlock TextWrapping="Wrap" VerticalAlignment="Center"/>
+    			<Button Content="Browse" Grid.Column="2" Command="{Binding CommandBrowse, Mode=OneWay}"/>
+    		</Grid>
+    		<Grid Grid.Row="3" Margin="5" DataContext="{Binding RSAData}">
+    			<Grid.RowDefinitions>
+    				<RowDefinition Height="5*"/>
+    				<RowDefinition Height="16*"/>
+    			</Grid.RowDefinitions>
+    			<TextBlock TextWrapping="Wrap" Text="Key data" VerticalAlignment="Center" Height="16" Margin="0,0,0,4" d:IsLocked="True"/>
+    			<Grid Grid.Row="1" Margin="20,5,0,5">
+    				<Grid.ColumnDefinitions>
+    					<ColumnDefinition Width="109*"/>
+    					<ColumnDefinition Width="5*"/>
+    					<ColumnDefinition Width="300*"/>
+    				</Grid.ColumnDefinitions>
+    				<Grid.RowDefinitions>
+    					<RowDefinition Height="20*"/>
+    					<RowDefinition Height="17*"/>
+    					<RowDefinition Height="17*"/>
+    				</Grid.RowDefinitions>
+    				<TextBlock TextWrapping="Wrap" Text="Size (bits)"/>
+    				<TextBlock Grid.Column="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding KeySize, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, TargetNullValue=-- empty --}" Margin="0,4,0,0" Height="16"/>
+    				<TextBlock Grid.Row="1" TextWrapping="Wrap" Text="Signature algorithm"/>
+    				<TextBlock Grid.Column="2" Grid.Row="1" TextWrapping="Wrap" Text="{Binding SignatureAlgorithm, Mode=OneWay, NotifyOnSourceUpdated=True, NotifyOnValidationError=True, TargetNullValue=-- empty --}"/>
+    			</Grid>
+    		</Grid>
+    		<Grid Grid.Row="4" d:IsLocked="True">
+    			<Grid.ColumnDefinitions>
+    				<ColumnDefinition Width="254*"/>
+    				<ColumnDefinition Width="94*"/>
+    				<ColumnDefinition Width="6*"/>
+    				<ColumnDefinition Width="91*"/>
+    			</Grid.ColumnDefinitions>
+    			<Button Content="Exit" Grid.Column="3" IsCancel="True" Command="{Binding CommandExit, Mode=OneWay}"/>
+    			<Button Content="Load" Grid.Column="1" IsDefault="True" Command="{Binding CommandLoadKeys, Mode=OneWay}"/>
+    		</Grid>
+    	</Grid>
+    </Border>
+</Window>
